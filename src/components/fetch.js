@@ -11,6 +11,10 @@ function Fetch(){
         getData();
     },[search])
 
+function resetSearch(){
+    setSearch('');
+}
+
 function getData(){
         axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=${API_KEY}`)
         .then((response)=>{
@@ -21,6 +25,7 @@ function getData(){
                 name : output.name
             }
             setDetails(obj);
+            resetSearch();
             console.log('fetch',response.data,'output',output.main.temp)
         })
         .catch((error)=>{
@@ -28,16 +33,15 @@ function getData(){
         })
     }
 
-
     return (
-        <div>
-            <input type='text' className='search' onChange={e=>setSearch(e.target.value)} value={search} onFocus={()=>setSearch('')}/>
-           <div className="weather" >
+        <form>
+            <input type='text' className='search' onChange={e=>setSearch(e.target.value)} value={search}/>
+            <div className="weather" >
                 <h1>{details.name}</h1>
                 <strong>{details.temp}F</strong>
                 <p>{details.desc}</p>
             </div>
-        </div>
+        </form>
     )
 }
 export default Fetch;
