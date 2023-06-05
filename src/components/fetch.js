@@ -23,13 +23,16 @@ function getData(){
             setDetails(obj);
             console.log('fetch',response.data,'output',output.main.temp)
         })
-        .catch((error)=>console.log(error))
+        .catch((error)=>{
+            console.log(error);
+        })
     }
+
 
     return (
         <div>
-           <input type='text' className='search' onChange={e=>setSearch(e.target.value)} value={search}/>
-           <div className="weather">
+            <input type='text' className='search' onChange={e=>setSearch(e.target.value)} value={search} onFocus={()=>setSearch('')}/>
+           <div className="weather" >
                 <h1>{details.name}</h1>
                 <strong>{details.temp}F</strong>
                 <p>{details.desc}</p>
